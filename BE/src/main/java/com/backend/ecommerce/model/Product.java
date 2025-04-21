@@ -47,6 +47,4 @@ public class Product {
     @Setter
     @Column(nullable = false, columnDefinition = "INT DEFAULT 0")
     private Integer b_quantity = 0;
-
-
 }
