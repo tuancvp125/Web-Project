@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class CartService {
     @Autowired
-    private final CartRepository cartRepository;
+    private final CartRepository cartRepository; //preventing reassignment
     @Autowired
     private final UserRepository userRepository;
     @Autowired
@@ -33,7 +33,7 @@ public class CartService {
     }
 
     public Cart createCart(Integer userId) {
-        Optional<User> existingUser = userRepository.findById(userId);
+        Optional<User> existingUser = userRepository.findById(userId); //
         Cart cart = new Cart();
         cart.setUser(existingUser.orElseThrow(() -> new RuntimeException("User not found")));
         return cartRepository.save(cart);
@@ -74,10 +74,10 @@ public class CartService {
                 return "Item added to cart";
             }
         } else {
-             throw new RuntimeException("Invalid Product or Cart ID");
+            throw new RuntimeException("Invalid Product or Cart ID");
         }
     }
-@Transactional
+    @Transactional //Exception occurs -> roll back to the initial
     public void removeCartItem(Long cartId, Long cartItemId) {
         try {
             Optional<Cart> savedCart = cartRepository.findById(cartId);
@@ -94,7 +94,7 @@ public class CartService {
             throw new RuntimeException("cart item or cart not found");
         }
     }
-@Transactional
+    @Transactional
     public void clearCart(Long cartId) {
         Optional<Cart> optionalCart = cartRepository.findById(cartId);
         if (optionalCart.isPresent()) {
