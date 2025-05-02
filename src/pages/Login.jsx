@@ -12,8 +12,12 @@ const Login = () => {
     lastName: '',
     email: '',
     password: '',
+    rePassword: '',
     phoneNumber: '',
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRePassword, setShowRePassword] = useState(false);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -25,6 +29,16 @@ const Login = () => {
   
     if (currentState === 'Sign Up') {
         try {
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/;
+            if (!passwordRegex.test(formData.password)) {
+                alert('Mật khẩu phải có ít nhất 8 ký tự, bao gồm cả chữ cái viết thường, viết hoa, số và ký tự đặc biệt.');
+                return;
+            }
+
+            if (formData.password !== formData.rePassword) {
+                alert('Mật khẩu không khớp. Vui lòng nhập lại.');
+                return;
+            }
 
             const response = await CreateAccountApi(
                 formData.firstName,
@@ -113,26 +127,58 @@ const Login = () => {
             onChange={handleInputChange}
             required
           />
+          <input
+            type="email"
+            name="email"
+            className="font-sans w-full px-3 py-2 border border-gray-800"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            className="font-sans w-full px-3 py-2 border border-gray-800"
+            placeholder="Mật khẩu"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="rePassword"
+            name="rePassword"
+            className="font-sans w-full px-3 py-2 border border-gray-800"
+            placeholder="Nhập lại mật khẩu"
+            value={formData.rePassword}
+            onChange={handleInputChange}
+            required
+          />
         </>
       )}
-      <input
-        type="email"
-        name="email"
-        className="font-sans w-full px-3 py-2 border border-gray-800"
-        placeholder="Email"
-        value={formData.email}
-        onChange={handleInputChange}
-        required
-      />
-      <input
-        type="password"
-        name="password"
-        className="font-sans w-full px-3 py-2 border border-gray-800"
-        placeholder="Mật khẩu"
-        value={formData.password}
-        onChange={handleInputChange}
-        required
-      />
+      {currentState === 'Login' && (
+        <>
+          <input
+            type="email"
+            name="email"
+            className="font-sans w-full px-3 py-2 border border-gray-800"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            className="font-sans w-full px-3 py-2 border border-gray-800"
+            placeholder="Mật khẩu"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+          />
+        </>
+      )}
+      
       <div className="w-full flex justify-between text-sm mt-[-8px]">
         {/* <p className="cursor-pointer">Forgot your password?</p> */}
         <p
