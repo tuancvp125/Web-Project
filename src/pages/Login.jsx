@@ -133,15 +133,23 @@ const Login = () => {
         onChange={handleInputChange}
         required
       />
-      <div className="w-full flex justify-between text-sm mt-[-8px]">
-        {/* <p className="cursor-pointer">Forgot your password?</p> */}
-        <p
-          onClick={() => setCurrentState(currentState === 'Login' ? 'Sign Up' : 'Login')}
-          className="cursor-pointer"
-        >
-          {currentState === 'Login' ? 'Tạo tài khoản' : 'Đăng nhập'}
-        </p>
-      </div>
+        <div className="w-full flex justify-between text-sm mt-[-8px]">
+            {currentState === 'Login' && (
+                <p
+                    onClick={() => navigate("/forgot-password")}
+                    className="cursor-pointer hover:underline text-blue-600"
+                >
+                    Quên mật khẩu?
+                </p>
+            )}
+            <p
+                onClick={() => setCurrentState(currentState === 'Login' ? 'Sign Up' : 'Login')}
+                className="cursor-pointer"
+            >
+                {currentState === 'Login' ? 'Tạo tài khoản' : 'Đăng nhập'}
+            </p>
+        </div>
+
       <button className="bg-black text-white font-light px-8 py-2 mt-4">
         {currentState === 'Login' ? 'Đăng nhập' : 'Đăng ký'}
       </button>

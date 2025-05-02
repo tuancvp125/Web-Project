@@ -94,6 +94,17 @@ public class AuthenticationController {
         return ResponseEntity.ok("User has been logged out successfully.");
     }
 
+    //Request password reset
+    @PostMapping("/password-reset-request")
+    public ResponseEntity<String> requestReset(@RequestBody PasswordResetRequest request) {
+        authenticationService.sendPasswordResetToken(request);
+        return ResponseEntity.ok("Reset link sent to your email.");
+    }
 
+    //Set new password
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody SetNewPasswordRequest request) {
+        return ResponseEntity.ok(authenticationService.resetPassword(request));
+    }
 
 }

@@ -39,6 +39,32 @@ async function CreateAccountApi(firstName, lastName, email, password, phoneNumbe
         throw error; // Rethrow the error to be handled by the calling code
     }
 }
+//Reset password
+async function RequestPasswordResetApi(email) {
+    try {
+        const response = await axios.post(`${API_URL}/auth/password-reset-request`, {
+            email: email
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error requesting password reset:', error.response?.data || error.message);
+        throw error;
+    }
+}
+
+async function ResetPasswordApi(token, newPassword) {
+    try {
+        const response = await axios.post(`${API_URL}/auth/reset-password`, {
+            token: token,
+            newPassword: newPassword
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error resetting password:', error.response?.data || error.message);
+        throw error;
+    }
+}
+//reset password
 
 async function LoginApi(email, password) {
 
@@ -96,9 +122,11 @@ async function CheckTokenApi() {
     }
 }
 
-export { 
-    CreateAccountApi, 
-    LoginApi, 
-    LogoutApi, 
-    CheckTokenApi 
+export {
+    CreateAccountApi,
+    LoginApi,
+    LogoutApi,
+    CheckTokenApi,
+    RequestPasswordResetApi,
+    ResetPasswordApi
 };

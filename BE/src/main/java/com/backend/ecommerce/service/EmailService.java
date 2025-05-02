@@ -67,6 +67,29 @@ public class EmailService {
         javaMailSender.send(message);
     }
 
+    //resetPasswordEmail
+    public void sendResetPasswordEmail(String email, String token) throws MessagingException {
+        String resetLink = appUrl + "/reset-password?token=" + token;
+        String subject = "Reset Your Password";
+
+        String htmlContent = "<html><body style=\"font-family: Arial, sans-serif;\">" +
+                "<h2>Password Reset Request</h2>" +
+                "<p>We received a request to reset your password. Click the button below to reset it:</p>" +
+                "<a href=\"" + resetLink + "\" style=\"display: inline-block; background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;\">Reset Password</a>" +
+                "<p>If you didn’t request this, you can ignore this email.</p>" +
+                "<p>Thanks,<br>Hihihihi Support Team</p>" +
+                "</body></html>";
+
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+        helper.setTo(email);
+        helper.setSubject(subject);
+        helper.setText(htmlContent, true);
+
+        javaMailSender.send(message);
+    }
+    //resetPasswordEmail
+
     public MimeMessage createConfirmationMessage(Long order_id, String email) throws MessagingException {
         Optional<Order> existingOrder = orderRepository.findById(order_id);
         if (!existingOrder.isPresent()) {

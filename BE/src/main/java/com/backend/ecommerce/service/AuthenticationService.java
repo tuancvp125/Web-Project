@@ -18,6 +18,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.backend.ecommerce.dto.Request.PasswordResetRequest;
+import com.backend.ecommerce.dto.Request.SetNewPasswordRequest;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -68,6 +70,40 @@ public class AuthenticationService {
         emailService.sendVerificationEmail(user.getEmail(), verificationToken);
         return "Verify you email";
     }
+
+    //sendPasswordResetToken
+    public void sendPasswordResetToken(PasswordResetRequest request) {
+        var user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("No user found with this email"));
+
+        String token = UUID.randomUUID().toString();
+        user.setResetToken(token);
+        user.setResetTokenExpiration(LocalDateTime.now().plusMinutes(30));
+        userRepository.save(user);
+
+        try {
+            emailService.sendResetPasswordEmail(user.getEmail(), token);
+        } catch (MessagingException e) {
+            throw new RuntimeException("Failed to send reset email", e);
+        }
+    }
+
+    public String resetPassword(SetNewPasswordRequest request) {
+        var user = userRepository.findByResetToken(request.getToken())
+                .orElseThrow(() -> new RuntimeException("Invalid or expired token"));
+
+        if (user.getResetTokenExpiration() == null || user.getResetTokenExpiration().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("Token expired");
+        }
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        user.setResetToken(null);
+        user.setResetTokenExpiration(null);
+        userRepository.save(user);
+
+        return "Password has been reset successfully";
+    }
+    //Reset token
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(

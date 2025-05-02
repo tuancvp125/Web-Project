@@ -43,7 +43,7 @@ public class User implements UserDetails {
     @Column
     private String phoneNumber;
 
-@JsonIgnore
+    @JsonIgnore
     public String getVerificationToken() {
         return link;
     }
@@ -52,7 +52,13 @@ public class User implements UserDetails {
         this.link = verificationToken;
     }
 
+    //resetPassword
+    @Column(name = "reset_token")
+    private String resetToken;
 
+    @Column(name = "reset_token_expiration")
+    private LocalDateTime resetTokenExpiration;
+    //resetPassword
 
     public Boolean getStatus() {
         return status;
