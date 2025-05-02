@@ -33,7 +33,7 @@ public class User implements UserDetails {
     @Column
     private String email;
     @JsonIgnore
-    private String password; //hiding password from API response (Not including in JSON)
+    private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
     @JsonIgnore
@@ -43,7 +43,7 @@ public class User implements UserDetails {
     @Column
     private String phoneNumber;
 
-    @JsonIgnore
+@JsonIgnore
     public String getVerificationToken() {
         return link;
     }
@@ -73,11 +73,11 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority>      = new ArrayList<>();
+          List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(this.getRole().name()));
         return authorities;
     }
-    @JsonIgnore
+@JsonIgnore
     @Override
     public String getPassword() {
         return password;

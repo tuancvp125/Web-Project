@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Table(name = "address")
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Address {
 
     @Id

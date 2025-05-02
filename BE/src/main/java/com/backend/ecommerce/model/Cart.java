@@ -16,8 +16,8 @@ public class Cart {
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    @JsonManagedReference
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+@JsonManagedReference
+@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 
     private List<CartItem> items;
 
@@ -47,5 +47,7 @@ public class Cart {
     public void clearItems() {
         this.items.clear();
     }
+
+
 
 }
