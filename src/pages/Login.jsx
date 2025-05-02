@@ -2,6 +2,8 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { ShopContext } from '../context/ShopContext';
 import { CreateAccountApi, LoginApi } from '../axios/axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,6 +20,14 @@ const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleRePasswordVisibility = () => {
+    setShowRePassword(!showRePassword);
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -136,24 +146,38 @@ const Login = () => {
             onChange={handleInputChange}
             required
           />
-          <input
-            type="password"
-            name="password"
-            className="font-sans w-full px-3 py-2 border border-gray-800"
-            placeholder="Mật khẩu"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-          <input
-            type="rePassword"
-            name="rePassword"
-            className="font-sans w-full px-3 py-2 border border-gray-800"
-            placeholder="Nhập lại mật khẩu"
-            value={formData.rePassword}
-            onChange={handleInputChange}
-            required
-          />
+          <div className="relative w-full">
+        <input
+          type={showPassword ? "text" : "password"}
+          name="password"
+          className="font-sans w-full px-3 py-2 border border-gray-800"
+          placeholder="Mật khẩu"
+          value={formData.password}
+          onChange={handleInputChange}
+          required
+        />
+        <FontAwesomeIcon
+          icon={showPassword ? faEye : faEyeSlash}
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+          onClick={togglePasswordVisibility}
+        />
+      </div>
+      <div className="relative w-full">
+        <input
+          type={showRePassword ? "text" : "password"}
+          name="rePassword"
+          className="font-sans w-full px-3 py-2 border border-gray-800"
+          placeholder="Nhập lại mật khẩu"
+          value={formData.rePassword}
+          onChange={handleInputChange}
+          required
+        />
+        <FontAwesomeIcon
+          icon={showRePassword ? faEye : faEyeSlash}
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+          onClick={toggleRePasswordVisibility}
+        />
+      </div>
         </>
       )}
       {currentState === 'Login' && (
