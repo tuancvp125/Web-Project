@@ -12,6 +12,11 @@ const ResetPassword = () => {
     const handleReset = async (e) => {
         e.preventDefault();
         try {
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/;
+            if (!passwordRegex.test(newPassword)) {
+                alert('Mật khẩu phải có ít nhất 8 ký tự, bao gồm cả chữ cái viết thường, viết hoa, số và ký tự đặc biệt.');
+                return;
+            }
             await ResetPasswordApi(token, newPassword);
             setMessage('Đặt lại mật khẩu thành công. Đang chuyển hướng...');
             setTimeout(() => navigate("/login"), 2000);
