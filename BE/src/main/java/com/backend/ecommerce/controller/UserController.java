@@ -33,8 +33,4 @@ public class UserController {
         return ResponseEntity.ok("User role updated successfully.");
     }
 
-
-
-
-
 }

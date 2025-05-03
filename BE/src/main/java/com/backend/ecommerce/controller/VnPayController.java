@@ -42,7 +42,7 @@ public class VnPayController {
         model.addAttribute("paymentTime", paymentTime);
         model.addAttribute("transactionId", transactionId);
 
-        String redirectUrl = "https://nguyenminhtien.xyz";  // Link quay lại trang mua hàng
+        String redirectUrl = "http://localhost:5174";  // Link quay lại trang mua hàng
 
         // HTML động dựa trên paymentStatus
         String htmlResponse;

@@ -16,7 +16,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findByLink(String link);
     Optional<User> findById(Integer id);
+    Optional<User> findByResetToken(String resetToken);
     List<User> findByCartIdDefault(Long cartIdDefault);
-
 
 }

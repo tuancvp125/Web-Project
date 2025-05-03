@@ -18,6 +18,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CheckTokenApi } from './axios/axios';
 import LayoutDefault from './components/admin/layouts/LayoutDefault';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 const App = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(ShopContext);
@@ -64,6 +66,8 @@ const App = () => {
           }
         />
         <Route path='/pay' element={<Payment/>} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/reset-password' element={<ResetPassword />} />
       </Routes>
       <Footer/>
     </div>

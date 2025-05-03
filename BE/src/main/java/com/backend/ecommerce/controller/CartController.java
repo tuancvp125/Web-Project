@@ -24,7 +24,7 @@ public class CartController {
     public CartController(CartService cartService) {
         this.cartService = cartService;
     }
-
+    
     @PostMapping("/create")
     public ResponseEntity<Cart> createCart(@RequestParam Integer user_id) {
         Cart cart = cartService.createCart(user_id);
