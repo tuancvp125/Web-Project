@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {API_URL} from "../constant.js";
 
+
 async function CreateAccountApi(firstName, lastName, email, password, phoneNumber) {
     console.log(firstName);
     console.log(lastName);

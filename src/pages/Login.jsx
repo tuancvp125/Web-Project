@@ -5,6 +5,7 @@ import { CreateAccountApi, LoginApi } from '../axios/axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
+
 const Login = () => {
   const navigate = useNavigate();
   const { setIsAuthenticated, handleAuthentication } = useContext(ShopContext);
