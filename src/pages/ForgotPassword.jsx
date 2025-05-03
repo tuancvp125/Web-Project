@@ -8,7 +8,7 @@ const ForgotPassword = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await RequestPasswordResetApi(email);
+            await RequestPasswordResetApi (email);
             setMessage('Liên kết đặt lại mật khẩu đã được gửi đến email của bạn.');
         } catch (error) {
             setMessage('Đã xảy ra lỗi. Vui lòng thử lại.');

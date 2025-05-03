@@ -69,7 +69,7 @@ public class EmailService {
 
     //resetPasswordEmail
     public void sendResetPasswordEmail(String email, String token) throws MessagingException {
-        String resetLink = appUrl + "/reset-password?token=" + token;
+        String resetLink = "http://localhost:5174" + "/reset-password?token=" + token;
         String subject = "Reset Your Password";
 
         String htmlContent = "<html><body style=\"font-family: Arial, sans-serif;\">" +
