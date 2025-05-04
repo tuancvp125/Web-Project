@@ -8,6 +8,7 @@ import com.backend.ecommerce.model.Cart;
 import com.backend.ecommerce.model.User;
 import com.backend.ecommerce.repository.UserRepository;
 import com.backend.ecommerce.service.AuthenticationService;
+import com.backend.ecommerce.service.CaptchaService;
 import com.backend.ecommerce.dto.Request.PasswordResetRequest;
 import com.backend.ecommerce.dto.Request.SetNewPasswordRequest;
 
@@ -31,6 +32,8 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private CaptchaService captchaService;
 
 
 
@@ -43,9 +46,15 @@ public class AuthenticationController {
 
 
     @PostMapping("/sign-in")
-    public ResponseEntity<AuthenticationResponse> authenticate(
+    public ResponseEntity<?> authenticate(
             @RequestBody AuthenticationRequest request
     ) {
+        boolean isCaptchaValid = captchaService.verifyCaptcha(request.getCaptchaToken());
+
+        if (!isCaptchaValid) {
+            return ResponseEntity.badRequest().body("Invalid reCAPTCHA");
+        }
+
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 

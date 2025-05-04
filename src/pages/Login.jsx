@@ -4,6 +4,7 @@ import { ShopContext } from '../context/ShopContext';
 import { CreateAccountApi, LoginApi } from '../axios/axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 
 const Login = () => {
@@ -20,6 +21,8 @@ const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const [showCaptcha, setShowCaptcha] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -70,8 +73,23 @@ const Login = () => {
             console.error(error);
         }
     } else {
+        if (!formData.email || !formData.password) {
+            alert("Vui lòng nhập email và mật khẩu.");
+            return;
+        }
+
+        if (!showCaptcha) {
+            setShowCaptcha(true);
+            return;
+        }
+
+        if (!captchaToken) {
+            alert("Vui lòng xác thực captcha trước khi đăng nhập.");
+            return;
+        }
+
         try {
-            const response = await LoginApi(formData.email, formData.password);
+            const response = await LoginApi(formData.email, formData.password, captchaToken);
             if (response && response.token) {
                 localStorage.setItem('authToken', response.token);
                 localStorage.setItem('userName', response.name);
@@ -219,6 +237,13 @@ const Login = () => {
               {currentState === 'Login' ? 'Tạo tài khoản' : 'Đăng nhập'}
           </p>
       </div>
+        {showCaptcha && currentState === 'Login' && (
+            <ReCAPTCHA
+                sitekey="6LfflS0rAAAAAFh3OpJ4ZQL8FyrSIWehh_jAgMtu"
+                onChange={(token) => setCaptchaToken(token)}
+                className="mt-2"
+            />
+        )}
       <button className="bg-black text-white font-light px-8 py-2 mt-4">
         {currentState === 'Login' ? 'Đăng nhập' : 'Đăng ký'}
       </button>

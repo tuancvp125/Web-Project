@@ -67,12 +67,13 @@ async function ResetPasswordApi(token, newPassword) {
 }
 //reset password
 
-async function LoginApi(email, password) {
+async function LoginApi(email, password, captchaToken) {
 
     try {
         const response = await axios.post(`${API_URL}/auth/sign-in`, {
             email: email,
-            password: password
+            password: password,
+            captchaToken: captchaToken
         });
 
         return response.data;
