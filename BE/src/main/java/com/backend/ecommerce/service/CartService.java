@@ -34,9 +34,19 @@ public class CartService {
 
     public Cart createCart(Integer userId) {
         Optional<User> existingUser = userRepository.findById(userId);
+        User user = existingUser.orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Check if user already has a cart
+        Optional<Cart> existingCart = cartRepository.findByUserId(userId);
+        if (existingCart.isPresent()) {
+            return existingCart.get();
+        }
+
         Cart cart = new Cart();
-        cart.setUser(existingUser.orElseThrow(() -> new RuntimeException("User not found")));
-        return cartRepository.save(cart);
+        cart.setUser(user);
+        Cart savedCart = cartRepository.save(cart);
+
+        return savedCart;
     }
 
     public Cart getCartById(Long cartId) {

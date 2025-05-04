@@ -46,6 +46,9 @@ public class AuthenticationService {
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    private CaptchaService captchaService;
+
 
     public String registerUser(RegisterRequest request) throws MessagingException {
         boolean userExists = userRepository.existsByEmail(request.getEmail());
