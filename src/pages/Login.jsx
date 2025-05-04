@@ -2,6 +2,9 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { ShopContext } from '../context/ShopContext';
 import { CreateAccountApi, LoginApi } from '../axios/axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,6 +18,17 @@ const Login = () => {
     phoneNumber: '',
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRePassword, setShowRePassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleRePasswordVisibility = () => {
+    setShowRePassword(!showRePassword);
+  };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -25,6 +39,16 @@ const Login = () => {
   
     if (currentState === 'Sign Up') {
         try {
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/;
+            if (!passwordRegex.test(formData.password)) {
+                alert('Mật khẩu phải có ít nhất 8 ký tự, bao gồm cả chữ cái viết thường, viết hoa, số và ký tự đặc biệt.');
+                return;
+            }
+
+            if (formData.password !== formData.rePassword) {
+                alert('Mật khẩu không khớp. Vui lòng nhập lại.');
+                return;
+            }
 
             const response = await CreateAccountApi(
                 formData.firstName,
@@ -113,42 +137,88 @@ const Login = () => {
             onChange={handleInputChange}
             required
           />
+          <input
+            type="email"
+            name="email"
+            className="font-sans w-full px-3 py-2 border border-gray-800"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+          />
+          <div className="relative w-full">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              className="font-sans w-full px-3 py-2 border border-gray-800"
+              placeholder="Mật khẩu"
+              value={formData.password}
+              onChange={handleInputChange}
+              required
+            />
+            <FontAwesomeIcon
+              icon={showPassword ? faEye : faEyeSlash}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+              onClick={togglePasswordVisibility}
+            />
+          </div>
+          <div className="relative w-full">
+            <input
+              type={showRePassword ? "text" : "password"}
+              name="rePassword"
+              className="font-sans w-full px-3 py-2 border border-gray-800"
+              placeholder="Nhập lại mật khẩu"
+              value={formData.rePassword}
+              onChange={handleInputChange}
+              required
+            />
+            <FontAwesomeIcon
+              icon={showRePassword ? faEye : faEyeSlash}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+              onClick={toggleRePasswordVisibility}
+            />
+          </div>
         </>
       )}
-      <input
-        type="email"
-        name="email"
-        className="font-sans w-full px-3 py-2 border border-gray-800"
-        placeholder="Email"
-        value={formData.email}
-        onChange={handleInputChange}
-        required
-      />
-      <input
-        type="password"
-        name="password"
-        className="font-sans w-full px-3 py-2 border border-gray-800"
-        placeholder="Mật khẩu"
-        value={formData.password}
-        onChange={handleInputChange}
-        required
-      />
-        <div className="w-full flex justify-between text-sm mt-[-8px]">
-            {currentState === 'Login' && (
-                <p
-                    onClick={() => navigate("/forgot-password")}
-                    className="cursor-pointer"
-                >
-                    Quên mật khẩu?
-                </p>
-            )}
-            <p
-                onClick={() => setCurrentState(currentState === 'Login' ? 'Sign Up' : 'Login')}
-                className="cursor-pointer"
-            >
-                {currentState === 'Login' ? 'Tạo tài khoản' : 'Đăng nhập'}
-            </p>
-        </div>
+      {currentState === 'Login' && (
+        <>
+          <input
+            type="email"
+            name="email"
+            className="font-sans w-full px-3 py-2 border border-gray-800"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            className="font-sans w-full px-3 py-2 border border-gray-800"
+            placeholder="Mật khẩu"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+          />
+        </>
+      )}
+      
+      <div className="w-full flex justify-between text-sm mt-[-8px]">
+          {currentState === 'Login' && (
+              <p
+                  onClick={() => navigate("/forgot-password")}
+                  className="cursor-pointer"
+              >
+                  Quên mật khẩu?
+              </p>
+          )}
+          <p
+              onClick={() => setCurrentState(currentState === 'Login' ? 'Sign Up' : 'Login')}
+              className="cursor-pointer"
+          >
+              {currentState === 'Login' ? 'Tạo tài khoản' : 'Đăng nhập'}
+          </p>
+      </div>
       <button className="bg-black text-white font-light px-8 py-2 mt-4">
         {currentState === 'Login' ? 'Đăng nhập' : 'Đăng ký'}
       </button>

@@ -35,14 +35,23 @@ export default function Signup() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const { userName, email, password, rePassword, address } = formValues;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/;
         
         if (!userName || !email || !password || !rePassword || !address) {
             setErrorMessage("All fields are required.");
+            alert("All fields are required.");
             return;
+        }
+
+        if (!passwordRegex.test(password)) {
+            setErrorMessage("Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.");
+            alert("Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.");  
+            return;             
         }
 
         if (password !== rePassword) {
             setErrorMessage("Passwords do not match.");
+            alert("Passwords do not match.");
             return;
         }
 
