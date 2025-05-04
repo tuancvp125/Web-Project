@@ -6,7 +6,6 @@ async function CreateAccountApi(firstName, lastName, email, password, phoneNumbe
     console.log(firstName);
     console.log(lastName);
     console.log(email);
-    console.log(password);
     console.log(phoneNumber);
     // Prepare the data to be sent in JSON format
     const requestData = {
