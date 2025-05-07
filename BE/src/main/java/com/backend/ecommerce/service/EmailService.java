@@ -34,7 +34,7 @@ public class EmailService {
 
     public void sendVerificationEmail(String email, String verificationToken) throws MessagingException {
         String subject = "User Confirmation";
-        String verificationLink = appUrl + "/auth/verify?token=" + verificationToken;
+        String verificationLink = "http://localhost:82" + "/auth/verify?token=" + verificationToken;
         String body = "Please click on this link to verify your email address: " + verificationLink;
 
         MimeMessage message = javaMailSender.createMimeMessage();
