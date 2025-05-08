@@ -90,7 +90,10 @@ const Login = () => {
 
         try {
             const response = await LoginApi(formData.email, formData.password, captchaToken);
-            if (response && response.token) {
+            if (response.requiresOtp) {
+                localStorage.setItem("pendingEmail", formData.email);
+                navigate("/verify-otp");
+            } else if (response && response.token) {
                 localStorage.setItem('authToken', response.token);
                 localStorage.setItem('userName', response.name);
                 localStorage.setItem('userId', response.userId);

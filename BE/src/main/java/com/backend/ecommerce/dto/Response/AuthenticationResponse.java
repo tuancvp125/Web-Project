@@ -17,4 +17,5 @@ public class AuthenticationResponse {
     private String role;
     private Long defaultCartId;
     private String phoneNumber;
+    private Boolean requiresOtp;
 }

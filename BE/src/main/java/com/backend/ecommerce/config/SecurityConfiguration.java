@@ -32,7 +32,6 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests()
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers("/reset-password", "/forgot-password").permitAll()
                 .antMatchers("/user/products/**").permitAll()
                 .antMatchers("/admin/**").hasAuthority(String.valueOf(Role.ADMIN))
                 .antMatchers("/api/**").permitAll()

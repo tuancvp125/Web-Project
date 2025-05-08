@@ -9,6 +9,7 @@ import com.backend.ecommerce.repository.TokenRepository;
 import com.backend.ecommerce.repository.UserRepository;
 import com.backend.ecommerce.token.Token;
 import com.backend.ecommerce.token.TokenType;
+import com.backend.ecommerce.dto.Request.VerifyRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -25,6 +26,8 @@ import javax.mail.internet.MimeMessage;
 import javax.validation.Valid;
 import java.util.UUID;
 import java.time.LocalDateTime;
+import java.util.Random;
+import java.time.Duration;
 
 @Service
 @RequiredArgsConstructor
@@ -108,6 +111,53 @@ public class AuthenticationService {
     }
     //Reset token
 
+    //verify otp
+    public AuthenticationResponse verifyOtp(VerifyRequest request) {
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        LocalDateTime now = LocalDateTime.now();
+
+        if (user.getOtpFailedAttempts() >= 5 &&
+                user.getOtpLastAttempt() != null &&
+                Duration.between(user.getOtpLastAttempt(), now).toMinutes() < 5) {
+            throw new RuntimeException("Too many failed attempts. Try again later.");
+        }
+
+        if (user.getLoginOtp() == null ||
+                !user.getLoginOtp().trim().equals(String.valueOf(request.getCode()).trim()) ||
+                user.getOtpExpiration() == null ||
+                user.getOtpExpiration().isBefore(now)) {
+
+            user.setOtpFailedAttempts(user.getOtpFailedAttempts() + 1);
+            user.setOtpLastAttempt(now);
+            userRepository.save(user);
+
+            throw new RuntimeException("Invalid or expired OTP");
+        }
+
+        user.setLoginOtp(null);
+        user.setOtpExpiration(null);
+        user.setOtpFailedAttempts(0);
+        user.setOtpLastAttempt(null);
+        userRepository.save(user);
+
+        String jwtToken = jwtService.generateToken(user);
+        revokeAllUserTokens(user);
+        saveUserToken(user, jwtToken);
+
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .role(user.getRole().toString())
+                .defaultCartId(user.getCartIdDefault())
+                .userId(user.getId())
+                .name(user.getFirstname() + " " + user.getLastname())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .build();
+    }
+    //verify otp
+
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -121,6 +171,26 @@ public class AuthenticationService {
         if (user.getStatus() == false) {
             throw new RuntimeException("User Didn't verify");
         }
+
+        if (Boolean.TRUE.equals(user.getTwoFactorEnabled())) {
+            // Generate and send email OTP
+            String otp = String.format("%06d", new Random().nextInt(999999));
+            user.setLoginOtp(otp);
+            user.setOtpExpiration(LocalDateTime.now().plusMinutes(5));
+            userRepository.save(user);
+
+            try {
+                emailService.sendLoginOtpEmail(user.getEmail(), otp);
+            } catch (MessagingException e) {
+                throw new RuntimeException("Failed to send OTP", e);
+            }
+
+            return AuthenticationResponse.builder()
+                    .requiresOtp(true)
+                    .email(user.getEmail())
+                    .build();
+        }
+
         cartService.getCart(user.getId());
         var jwtToken = jwtService.generateToken(user);
         revokeAllUserTokens(user);
@@ -135,7 +205,6 @@ public class AuthenticationService {
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
                 .build();
-
     }
 
     private void saveUserToken(User user, String jwtToken) {
@@ -180,6 +249,5 @@ public class AuthenticationService {
         } catch (Exception ex){
             throw ex;
         }
-
     }
 }

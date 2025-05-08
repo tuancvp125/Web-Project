@@ -123,11 +123,26 @@ async function CheckTokenApi() {
     }
 }
 
+async function Verify2FAApi(email, code) {
+    try {
+        const response = await axios.post(`${API_URL}/auth/verify-login-otp`, {
+            email: email,
+            code: parseInt(code)  // ensure it's an integer
+        });
+
+        return response.data; // should include JWT and user info
+    } catch (error) {
+        console.error("Error verifying OTP:", error.response?.data || error.message);
+        throw error;
+    }
+}
+
 export {
     CreateAccountApi,
     LoginApi,
     LogoutApi,
     CheckTokenApi,
     RequestPasswordResetApi,
-    ResetPasswordApi
+    ResetPasswordApi,
+    Verify2FAApi
 };

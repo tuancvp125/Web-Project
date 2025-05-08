@@ -24,7 +24,7 @@ async function getAllUserApi(authToken) {
     
 }
 
-async function changeRole(userEmail) {
+/*async function changeRole(userEmail) {
     const token = localStorage.getItem('authToken');  // Lấy token từ localStorage
     console.log(userEmail);
     
@@ -49,9 +49,74 @@ async function changeRole(userEmail) {
         console.error("Lỗi khi thay đổi vai trò:", error);
         throw error;
     }
+}*/
+
+async function Enable2FAApi() {
+    const token = localStorage.getItem("authToken");
+
+    if (!token) {
+        throw new Error("Authentication token not found");
+    }
+
+    try {
+        const response = await axios.post(`${API_URL}/user/enable-2fa`, {}, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error enabling 2FA:", error.response?.data || error.message);
+        throw error;
+    }
+}
+
+async function Disable2FAApi() {
+    const token = localStorage.getItem("authToken");
+
+    if (!token) {
+        throw new Error("Authentication token not found");
+    }
+
+    try {
+        const response = await axios.post(`${API_URL}/user/disable-2fa`, {}, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error disabling 2FA:", error.response?.data || error.message);
+        throw error;
+    }
+}
+
+async function Get2FAStatusApi() {
+    const token = localStorage.getItem("authToken");
+
+    if (!token) {
+        throw new Error("Authentication token not found");
+    }
+
+    try {
+        const response = await axios.get(`${API_URL}/user/2fa-status`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error getting 2FA status:", error.response?.data || error.message);
+        throw error;
+    }
 }
 
 export { 
     getAllUserApi,
-    changeRole
+    Get2FAStatusApi,
+    Disable2FAApi,
+    Enable2FAApi
 };

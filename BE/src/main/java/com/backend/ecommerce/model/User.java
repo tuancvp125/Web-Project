@@ -17,7 +17,6 @@ import java.util.Collection;
 import java.util.List;
 import java.time.LocalDateTime;
 
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -55,19 +54,48 @@ public class User implements UserDetails {
     }
 
     //resetPassword
+    @JsonIgnore
     @Column(name = "reset_token")
     private String resetToken;
 
+    @JsonIgnore
     @Column(name = "reset_token_expiration")
     private LocalDateTime resetTokenExpiration;
     //resetPassword
+
+    //otp
+    @JsonIgnore
+    @Column(name = "login_otp")
+    private String loginOtp;
+
+    @Column(name = "otp_expiration")
+    private LocalDateTime otpExpiration;
+
+    @JsonIgnore
+    @Column(name = "two_factor_secret")
+    private String twoFactorSecret;
+
+    @JsonIgnore
+    @Column(name = "otp_failed_attempts")
+    private Integer  otpFailedAttempts;
+
+    @JsonIgnore
+    @Column(name = "otp_last_attempt")
+    private LocalDateTime otpLastAttempt;
+
+    @Column(name = "two_factor_enabled")
+    private Boolean twoFactorEnabled; // keep exposed if needed
+
+    public Boolean getTwoFactorEnabled() {
+        return twoFactorEnabled;
+    }
+    //otp
 
     public Boolean getStatus() {
         return status;
     }
     @JsonIgnore
     private Boolean status;
-
 
     public void setStatus(Boolean status) {
         this.status = status;
@@ -85,7 +113,7 @@ public class User implements UserDetails {
         authorities.add(new SimpleGrantedAuthority(this.getRole().name()));
         return authorities;
     }
-@JsonIgnore
+    @JsonIgnore
     @Override
     public String getPassword() {
         return password;
