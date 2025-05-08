@@ -7,14 +7,20 @@ const ResetPassword = () => {
     const navigate = useNavigate();
     const token = searchParams.get("token");
     const [newPassword, setNewPassword] = useState('');
+    const [reNewPassword, setReNewPassword] = useState('');
     const [message, setMessage] = useState('');
 
     const handleReset = async (e) => {
         e.preventDefault();
         try {
-            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/;
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
             if (!passwordRegex.test(newPassword)) {
                 alert('Mật khẩu phải có ít nhất 8 ký tự, bao gồm cả chữ cái viết thường, viết hoa, số và ký tự đặc biệt.');
+                return;
+            }
+
+            if (newPassword !== reNewPassword) {
+                alert('Mật khẩu không khớp. Vui lòng nhập lại.');
                 return;
             }
             await ResetPasswordApi(token, newPassword);
@@ -35,6 +41,14 @@ const ResetPassword = () => {
                     className="border px-4 py-2"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
+                    required
+                />
+                <input
+                    type="rePassword"
+                    placeholder="Xác nhận mật khẩu mới"
+                    className="border px-4 py-2"
+                    value={reNewPassword}
+                    onChange={(e) => setReNewPassword(e.target.value)}
                     required
                 />
                 <button type="submit" className="bg-black text-white px-4 py-2">
