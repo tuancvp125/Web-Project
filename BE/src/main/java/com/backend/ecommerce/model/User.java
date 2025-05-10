@@ -77,7 +77,7 @@ public class User implements UserDetails {
 
     @JsonIgnore
     @Column(name = "otp_failed_attempts")
-    private Integer  otpFailedAttempts;
+    private Integer  otpFailedAttempts = 0;
 
     @JsonIgnore
     @Column(name = "otp_last_attempt")

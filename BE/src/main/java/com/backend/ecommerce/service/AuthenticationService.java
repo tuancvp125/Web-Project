@@ -117,8 +117,9 @@ public class AuthenticationService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         LocalDateTime now = LocalDateTime.now();
+        Integer failedAttempts = user.getOtpFailedAttempts() != null ? user.getOtpFailedAttempts() : 0;
 
-        if (user.getOtpFailedAttempts() >= 5 &&
+        if (failedAttempts >= 5 &&
                 user.getOtpLastAttempt() != null &&
                 Duration.between(user.getOtpLastAttempt(), now).toMinutes() < 5) {
             throw new RuntimeException("Too many failed attempts. Try again later.");
@@ -128,8 +129,9 @@ public class AuthenticationService {
                 !user.getLoginOtp().trim().equals(String.valueOf(request.getCode()).trim()) ||
                 user.getOtpExpiration() == null ||
                 user.getOtpExpiration().isBefore(now)) {
-
-            user.setOtpFailedAttempts(user.getOtpFailedAttempts() + 1);
+            
+            int currentFails = user.getOtpFailedAttempts() != null ? user.getOtpFailedAttempts() : 0;
+            user.setOtpFailedAttempts(currentFails + 1);
             user.setOtpLastAttempt(now);
             userRepository.save(user);
 
