@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.*;
 
 @Component
@@ -112,12 +113,23 @@ public class VNPayConfig {
         return ipAdress;
     }
 
+    private static final SecureRandom secureRandom;
+    static {
+        SecureRandom tempRandom;
+        try {
+            tempRandom = SecureRandom.getInstanceStrong(); 
+        } catch (NoSuchAlgorithmException e) {
+        tempRandom = new SecureRandom(); // Fallback to default SecureRandom
+        }
+        secureRandom = tempRandom;
+    }
+
     public static String getRandomNumber(int len) {
         Random rnd = new Random();
         String chars = "0123456789";
         StringBuilder sb = new StringBuilder(len);
         for (int i = 0; i < len; i++) {
-            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+            sb.append(chars.charAt(secureRandom.nextInt(chars.length())));
         }
         return sb.toString();
     }
