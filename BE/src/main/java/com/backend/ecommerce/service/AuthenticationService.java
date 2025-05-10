@@ -28,7 +28,8 @@ import java.util.UUID;
 import java.time.LocalDateTime;
 import java.util.Random;
 import java.time.Duration;
-
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -158,6 +159,18 @@ public class AuthenticationService {
                 .phoneNumber(user.getPhoneNumber())
                 .build();
     }
+
+    private static final SecureRandom secureRandom;
+    static {
+        SecureRandom tempRandom;
+        try {
+            tempRandom = SecureRandom.getInstanceStrong(); 
+        } catch (NoSuchAlgorithmException e) {
+        tempRandom = new SecureRandom(); // Fallback to default SecureRandom
+        }
+        secureRandom = tempRandom;
+    }
+
     //verify otp
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -176,7 +189,7 @@ public class AuthenticationService {
 
         if (Boolean.TRUE.equals(user.getTwoFactorEnabled())) {
             // Generate and send email OTP
-            String otp = String.format("%06d", new Random().nextInt(999999));
+            String otp = String.format("%06d", secureRandom.nextInt(999999));
             user.setLoginOtp(otp);
             user.setOtpExpiration(LocalDateTime.now().plusMinutes(5));
             userRepository.save(user);
