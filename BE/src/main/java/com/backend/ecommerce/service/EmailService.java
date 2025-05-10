@@ -97,6 +97,7 @@ public class EmailService {
     public void sendLoginOtpEmail(String to, String otp) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setFrom("tientom125@gmail.com");
 
         helper.setTo(to);
         helper.setSubject("Your Login OTP Code");
@@ -154,6 +155,7 @@ public class EmailService {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
         helper.setTo(email);
+        helper.setFrom("tientom125@gmail.com");
         helper.setSubject("Confirmation Email");
         helper.setText(htmlMessage, true);
         return message;
