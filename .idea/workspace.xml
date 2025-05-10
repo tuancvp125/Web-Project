@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7a898b6-dc25-4206-8246-6b2ce880e2a9" name="Changes" comment="console log" />
+    <list default="true" id="a7a898b6-dc25-4206-8246-6b2ce880e2a9" name="Changes" comment="console log">
+      <change beforePath="$PROJECT_DIR$/.firebaserc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/BE/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/service/EmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firebase.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constant.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constant.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +51,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "remote",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -81,7 +88,7 @@
       <workItem from="1746441751529" duration="9181000" />
       <workItem from="1746583446690" duration="41163000" />
       <workItem from="1746883025296" duration="1227000" />
-      <workItem from="1746884404975" duration="730000" />
+      <workItem from="1746884404975" duration="2672000" />
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />

@@ -31,10 +31,11 @@ public class EmailService {
     private OrderRepository orderRepository;
     @Value("${app.url}")
     private String appUrl;
+    private String myApp = "https://ec2-54-254-156-127.ap-southeast-1.compute.amazonaws.com";
 
     public void sendVerificationEmail(String email, String verificationToken) throws MessagingException {
         String subject = "User Confirmation";
-        String verificationLink = appUrl + "/auth/verify?token=" + verificationToken;
+        String verificationLink = myApp + "/auth/verify?token=" + verificationToken;
         String body = "Please click on this link to verify your email address: " + verificationLink;
 
         MimeMessage message = javaMailSender.createMimeMessage();
@@ -43,24 +44,24 @@ public class EmailService {
         helper.setSubject(subject);
         helper.setText("<html>\n" +
                 "<head>\n" +
-                "	<title> Welcome </title>\n" +
+                "       <title> Welcome </title>\n" +
                 "</head>\n" +
                 "<body style=\"font-family: Arial, sans-serif;\">\n" +
-                "	<table style=\"border: 1px solid #ccc; padding: 10px;\">\n" +
-                "		<tr>\n" +
-                "			<td>\n" +
-                "				<h1 style=\"color: #333;\">Thank you for registering with our service!</h1>\n" + "<p><img src=\"https://cdn.templates.unlayer.com/assets/1636450033923-19197947.png\" alt=\"product image\" width=\"400\" height=\"400\"></p>" +
+                "       <table style=\"border: 1px solid #ccc; padding: 10px;\">\n" +
+                "               <tr>\n" +
+                "                       <td>\n" +
+                "                               <h1 style=\"color: #333;\">Thank you for registering with our service!</h1>\n" + "<p><img src=\"https://cdn.templates.unlayer.com/assets/1636450033923-19197947.png\" alt=\"product image\" width=\"400\" height=\"400\"></p>" +
                 "<h3 style=\"color: #333;\">We're excited to have you get started! First, you need to confirm your account. Just click the button below.</h3>\n" +
-                "				<div style=\"background-color: #0096FF; padding: 10px; display: inline-block; margin: 10px 0;\">\n" +
-                "					<a href=\"" + verificationLink + "\" style=\"color: white; text-decoration: none;\">Click here to confirm your email address</a>\n" +
-                "				</div>\n" +
+                "                               <div style=\"background-color: #0096FF; padding: 10px; display: inline-block; margin: 10px 0;\">\n" +
+                "                                       <a href=\"" + verificationLink + "\" style=\"color: white; text-decoration: none;\">Click here to confirm your email address</a>\n" +
+                "                               </div>\n" +
                 "<h3 style=\"color: #333;\">If you have any questions, please feel free to let us know - we're always ready to help out.</h3>\n" +
                 "\n" +
                 "<h3 style=\"color: #333;\">Cheers,</h3>\n" +
                 "<h3 style=\"color: #333;\">Hihihihi</h3>\n" +
-                "			</td>\n" +
-                "		</tr>\n" +
-                "	</table>\n" +
+                "                       </td>\n" +
+                "               </tr>\n" +
+                "       </table>\n" +
                 "</body>\n" +
                 "</html>", true);
 
@@ -69,7 +70,7 @@ public class EmailService {
 
     //resetPasswordEmail
     public void sendResetPasswordEmail(String email, String token) throws MessagingException {
-        String resetLink = "http://localhost:5173" + "/reset-password?token=" + token;
+        String resetLink = myApp + "/reset-password?token=" + token;
         String subject = "Reset Your Password";
 
         String htmlContent = "<html><body style=\"font-family: Arial, sans-serif;\">" +
