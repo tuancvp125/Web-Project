@@ -40,6 +40,7 @@ public class EmailService {
 
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+        helper.setFrom("tientom125@gmail.com");
         helper.setTo(email);
         helper.setSubject(subject);
         helper.setText("<html>\n" +
@@ -83,6 +84,7 @@ public class EmailService {
 
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+        helper.setFrom("tientom125@gmail.com");
         helper.setTo(email);
         helper.setSubject(subject);
         helper.setText(htmlContent, true);
