@@ -35,7 +35,7 @@ public class EmailService {
 
     public void sendVerificationEmail(String email, String verificationToken) throws MessagingException {
         String subject = "User Confirmation";
-        String verificationLink = myApp + "/auth/verify?token=" + verificationToken;
+        String verificationLink = appUrl + "/auth/verify?token=" + verificationToken;
         String body = "Please click on this link to verify your email address: " + verificationLink;
 
         MimeMessage message = javaMailSender.createMimeMessage();
@@ -70,7 +70,7 @@ public class EmailService {
 
     //resetPasswordEmail
     public void sendResetPasswordEmail(String email, String token) throws MessagingException {
-        String resetLink = myApp + "/reset-password?token=" + token;
+        String resetLink = appUrl + "/reset-password?token=" + token;
         String subject = "Reset Your Password";
 
         String htmlContent = "<html><body style=\"font-family: Arial, sans-serif;\">" +
