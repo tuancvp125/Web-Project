@@ -20,6 +20,8 @@ import { CheckTokenApi } from './axios/axios';
 import LayoutDefault from './components/admin/layouts/LayoutDefault';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import TwoFactorPage from "./pages/TwoFactorPage";
+import VerifyOtp from "./pages/VerifyOtp";
 
 const App = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(ShopContext);
@@ -68,6 +70,8 @@ const App = () => {
         <Route path='/pay' element={<Payment/>} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/reset-password' element={<ResetPassword />} />
+          <Route path="/2fa" element={<TwoFactorPage />} />
+          <Route path="/verify-otp" element={<VerifyOtp />} />
       </Routes>
       <Footer/>
     </div>

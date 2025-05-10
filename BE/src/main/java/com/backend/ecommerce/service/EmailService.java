@@ -90,6 +90,28 @@ public class EmailService {
     }
     //resetPasswordEmail
 
+    //SendingOTP
+    public void sendLoginOtpEmail(String to, String otp) throws MessagingException {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setTo(to);
+        helper.setSubject("Your Login OTP Code");
+        helper.setText(
+                "<div style='font-family: Arial, sans-serif;'>" +
+                        "<h3>🛡️ Your Login OTP</h3>" +
+                        "<p>Your One-Time Password (OTP) is:</p>" +
+                        "<h2 style='color: #2e6da4;'>" + otp + "</h2>" +
+                        "<p>This OTP is valid for 5 minutes. If you did not request it, please ignore this email.</p>" +
+                        "<br><p>Thank you,<br>GachaWorld Team</p>" +
+                        "</div>",
+                true // HTML enabled
+        );
+
+        javaMailSender.send(message);
+    }
+    //SendingOTP
+
     public MimeMessage createConfirmationMessage(Long order_id, String email) throws MessagingException {
         Optional<Order> existingOrder = orderRepository.findById(order_id);
         if (!existingOrder.isPresent()) {

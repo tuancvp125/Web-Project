@@ -16,6 +16,7 @@ const Login = () => {
     lastName: '',
     email: '',
     password: '',
+    rePassword: '',
     phoneNumber: '',
   });
 
@@ -42,9 +43,9 @@ const Login = () => {
   
     if (currentState === 'Sign Up') {
         try {
-            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/;
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
             if (!passwordRegex.test(formData.password)) {
-                alert('Mật khẩu phải có ít nhất 8 ký tự, bao gồm cả chữ cái viết thường, viết hoa, số và ký tự đặc biệt.');
+                alert('Mật khẩu phải có ít nhất 8 ký tự, bao gồm cả chữ cái viết thường, viết hoa và số. ');
                 return;
             }
 
@@ -90,7 +91,10 @@ const Login = () => {
 
         try {
             const response = await LoginApi(formData.email, formData.password, captchaToken);
-            if (response && response.token) {
+            if (response.requiresOtp) {
+                localStorage.setItem("pendingEmail", formData.email);
+                navigate("/verify-otp");
+            } else if (response && response.token) {
                 localStorage.setItem('authToken', response.token);
                 localStorage.setItem('userName', response.name);
                 localStorage.setItem('userId', response.userId);

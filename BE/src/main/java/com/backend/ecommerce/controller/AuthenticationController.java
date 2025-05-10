@@ -9,14 +9,21 @@ import com.backend.ecommerce.model.User;
 import com.backend.ecommerce.repository.UserRepository;
 import com.backend.ecommerce.service.AuthenticationService;
 import com.backend.ecommerce.service.CaptchaService;
+import com.backend.ecommerce.service.TwoFactorAuthService;
 import com.backend.ecommerce.dto.Request.PasswordResetRequest;
 import com.backend.ecommerce.dto.Request.SetNewPasswordRequest;
+import com.backend.ecommerce.dto.Request.VerifyRequest;
 
 import com.backend.ecommerce.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import com.warrenstrange.googleauth.GoogleAuthenticator;
+import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
+import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 
 import javax.mail.MessagingException;
 import java.util.Optional;
@@ -34,6 +41,8 @@ public class AuthenticationController {
     private CartService cartService;
     @Autowired
     private CaptchaService captchaService;
+    @Autowired
+    private TwoFactorAuthService twoFactorAuthService;
 
 
 
@@ -117,5 +126,12 @@ public class AuthenticationController {
     public ResponseEntity<String> resetPassword(@RequestBody SetNewPasswordRequest request) {
         return ResponseEntity.ok(authenticationService.resetPassword(request));
     }
+
+    //OTP
+    @PostMapping("/verify-login-otp")
+    public ResponseEntity<AuthenticationResponse> verifyLoginOtp(@RequestBody VerifyRequest request) {
+        return ResponseEntity.ok(authenticationService.verifyOtp(request));
+    }
+    //OTP
 
 }
