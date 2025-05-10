@@ -70,7 +70,7 @@ public class EmailService {
 
     //resetPasswordEmail
     public void sendResetPasswordEmail(String email, String token) throws MessagingException {
-        String resetLink = myApp + "/reset-password?token=" + token;
+        String resetLink = "https://cssgo.xyz" + "/reset-password?token=" + token;
         String subject = "Reset Your Password";
 
         String htmlContent = "<html><body style=\"font-family: Arial, sans-serif;\">" +
