@@ -4,30 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7a898b6-dc25-4206-8246-6b2ce880e2a9" name="Changes" comment="console log">
-      <change afterPath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/dto/Request/VerifyRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/service/TwoFactorAuthService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/TwoFactorPage.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/VerifyOtp.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Web-Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Web-Project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BE/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/config/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/controller/AuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/dto/Response/AuthenticationResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/dto/Response/AuthenticationResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/repository/ProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/service/AuthenticationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BE/src/main/java/com/backend/ecommerce/service/EmailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/axios/axios.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/axios/axios.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/axios/user.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/axios/user.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login.jsx" afterDir="false" />
-    </list>
+    <list default="true" id="a7a898b6-dc25-4206-8246-6b2ce880e2a9" name="Changes" comment="console log" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,20 +40,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;tuan&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.3.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.3.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -103,12 +80,25 @@
       <updated>1746441750708</updated>
       <workItem from="1746441751529" duration="9181000" />
       <workItem from="1746583446690" duration="41163000" />
+      <workItem from="1746883025296" duration="1227000" />
+      <workItem from="1746884404975" duration="730000" />
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="console log" />
