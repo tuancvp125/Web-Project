@@ -36,8 +36,12 @@ public class UserController {
 
     @GetMapping
     public  ResponseEntity<User> getUserDetailsById(@RequestParam Integer id) {
-        Optional<User> user= userService.findByUserId(id);
-        return ResponseEntity.ok(user.get());
+        Optional<User> user = userService.findByUserId(id);
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
     @PutMapping("/{email}/role")
     public ResponseEntity<String> updateUserRole(@PathVariable String email, @RequestParam Role newRole) {
